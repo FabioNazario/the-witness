@@ -1,19 +1,13 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.com.fn.thewitness.puzzleparts;
 
-/**
- *
- * @author Fabio Nazario
- */
+import br.com.fn.thewitness.puzzlechallanges.Dot;
+
 public class Intersection {
 
-    boolean startPoint;
-    boolean endPoint;
-    boolean filled;
+    private boolean startPoint;
+    private boolean endPoint;
+    private boolean filled;
+    private Dot dot;
 
     //GETTERS AND SETTERS
 
@@ -49,6 +43,16 @@ public class Intersection {
     public void setFilled(boolean filled) {
         this.filled = filled;
     }
+
+    public Dot getDot() {
+        return dot;
+    }
+
+    public void setDot(Dot dot) {
+        this.dot = dot;
+    }
+    
+    
     
     
 

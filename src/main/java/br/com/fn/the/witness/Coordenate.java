@@ -9,7 +9,7 @@ package br.com.fn.the.witness;
  *
  * @author Fabio Nazario
  */
-public class Coordenate {
+public class Coordenate{
     private int x;
     private int y;
 
@@ -17,7 +17,17 @@ public class Coordenate {
         this.x = x;
         this.y = y;
     }
-
+    
+    void setValues(int x, int y) {
+        this.x = x;
+        this.y = y;
+    }
+    
+    void setValues(Coordenate coordenate) {
+        this.x = coordenate.getX();
+        this.y = coordenate.getY();
+    }
+    
     public int getX() {
         return x;
     }
@@ -63,6 +73,4 @@ public class Coordenate {
         return true;
     }
     
-    
-
 }

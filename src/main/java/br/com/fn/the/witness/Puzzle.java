@@ -5,6 +5,7 @@
  */
 package br.com.fn.the.witness;
 
+import br.com.fn.thewitness.puzzlechallanges.Dot;
 import br.com.fn.thewitness.puzzleparts.Block;
 import br.com.fn.thewitness.puzzleparts.Intersection;
 import br.com.fn.thewitness.puzzleparts.Street;
@@ -19,35 +20,53 @@ import java.util.Stack;
  */
 public class Puzzle {
     
-    int width;
-    int height;
-    Block[][] blocks;
-    Intersection[][] intersections;
-    HashMap<String, Street> streetMap = new HashMap<>();
-    Coordenate startPoint = new Coordenate(0,0);
-    Coordenate endPoint = new Coordenate(0,0);
-    Coordenate currentPoint = new Coordenate(0,0);
-    Stack<Coordenate> path = new Stack<Coordenate>();
+    //CONFIG
+    private int width;
+    private int height;
+    private Block[][] blocks;
+    private Intersection[][] intersections;
+    private HashMap<String, Street> streetMap = new HashMap<>();
+    private Coordenate startPoint = new Coordenate(0,0);
+    private Coordenate endPoint = new Coordenate(0,0);
+    private List<Coordenate> dotIntersectionList;
+    
+    //STATE
+    private Coordenate currentPoint = new Coordenate(0,0);
+    private Stack<Coordenate> path = new Stack<Coordenate>();
+    
 
 
 
     
-    public Puzzle(int width, int height, Coordenate startPoint, Coordenate endPoint) {
+    public Puzzle(int width, int height, Coordenate startPoint, Coordenate endPoint, List<Coordenate> dotIntersectionList) {
         this.width = width;
         this.height = height;
-        this.startPoint.setX(startPoint.getX());
-        this.startPoint.setY(startPoint.getY());
-        this.endPoint.setX(endPoint.getX());
-        this.endPoint.setY(endPoint.getY());
-        this.currentPoint.setX(startPoint.getX());
+        this.startPoint.setValues(startPoint);
+        this.currentPoint.setValues(startPoint);
+        this.endPoint.setValues(endPoint);
         this.currentPoint.setY(startPoint.getY());
         path.push(startPoint);
+        this.dotIntersectionList = dotIntersectionList;
         
         this.initBlocks();
         this.initIntersections();
         this.initStreets();
         
         intersections[startPoint.getX()][startPoint.getY()].setFilled(true);
+    }
+    
+    
+    public void reset() {
+        
+        path = new Stack<Coordenate>();
+        path.push(startPoint);
+        this.currentPoint.setValues(startPoint);
+        this.initBlocks();
+        this.initIntersections();
+        this.initStreets();
+        intersections[startPoint.getX()][startPoint.getY()].setFilled(true);
+        print();
+        
     }
     
     private void initBlocks(){
@@ -64,7 +83,9 @@ public class Puzzle {
     private void initIntersections(){
         
         int interWidth = width + 1;  
-        int interHeight = height + 1;  
+        int interHeight = height + 1; 
+        
+        Coordenate currCoordenate = new Coordenate(0,0);
         
         intersections = new Intersection[interWidth][interHeight];
         
@@ -79,6 +100,11 @@ public class Puzzle {
                 if (endPoint.getX() == i && endPoint.getY() == j){
                     intersections[i][j].setEndPoint(true);
                 } 
+                
+                currCoordenate.setValues(i,j);
+                if(dotIntersectionList.contains(currCoordenate)){
+                    intersections[i][j].setDot(new Dot(1,"gray"));
+                }
             }  
         }
     }
@@ -128,7 +154,9 @@ public class Puzzle {
     public void print(){
         int interWidth = width + 1;  
         int interHeight = height + 1;  
-        String value = " ";        
+        String value = " ";
+
+        System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
         for (int i = 0; i < interWidth; i++) {
             for (int j = 0; j < interHeight; j++) {
                     
@@ -138,6 +166,10 @@ public class Puzzle {
                 
                 if(intersections[i][j].isFilled()){
                     value = "x";
+                }
+                
+                if(intersections[i][j].getDot() != null){
+                    value = "o";
                 }
                 
                 System.out.print("[" +value+ "]");
@@ -150,7 +182,7 @@ public class Puzzle {
         System.out.println("-----------------------");
     }
     
-    public boolean move(String direction){
+    public void move(String direction){
         
         Coordenate testPoint = new Coordenate(currentPoint.getX(), currentPoint.getY());
 
@@ -173,12 +205,10 @@ public class Puzzle {
         
         if (!isValidMoveCoordenate(testPoint)){
             print();
-            return false;
+            return;
         }
         
         if (isBackMove(testPoint)){
-            
-            System.out.println("is back move!!!");
             intersections[currentPoint.getX()][currentPoint.getY()].setFilled(false);
             path.pop();
             path.pop();
@@ -189,10 +219,7 @@ public class Puzzle {
         intersections[currentPoint.getX()][currentPoint.getY()].setFilled(true);
 
         path.push(new Coordenate(testPoint.getX(), testPoint.getY()));
-        print();
-        
-        return isClear();
-        
+        print();    
     }
     
     private boolean  isValidMapCoordenate(Coordenate c){
@@ -220,13 +247,41 @@ public class Puzzle {
         return true;
     }
     
-    public boolean isClear(){
-        
+    public boolean isFinish(){     
         if (currentPoint.equals(endPoint)){
             return true;
         }
         
         return false;
+    }
+    
+    public boolean isClear(){
+        
+        if(!isAllDotsGot()){
+            return false;
+        }
+        
+        return true;
+    }
+    
+    private boolean isAllDotsGot(){
+        
+        if (dotIntersectionList == null)
+            return true;
+        
+        Coordenate currCoordenate = new Coordenate(0,0);
+        
+        for (int i = 0; i < this.width; i++) {
+            for (int j = 0; j < this.height; j++) { 
+                currCoordenate.setValues(i,j);
+                if(dotIntersectionList.contains(currCoordenate) 
+                        && !intersections[i][j].isFilled()){
+                    return false;
+                }   
+            }
+        }
+        
+        return true;
     }
     
      private boolean isBackMove(Coordenate c){
@@ -235,10 +290,10 @@ public class Puzzle {
          if (path.size() < 2){
             return false;
          }
-         System.out.print(path.get(path.size() -2).getX() + ", ");
-         System.out.println(path.get(path.size() -2).getY());
-         System.out.print(c.getX() + ", ");
-         System.out.println(c.getY());
+         //System.out.print(path.get(path.size() -2).getX() + ", ");
+         //System.out.println(path.get(path.size() -2).getY());
+         //System.out.print(c.getX() + ", ");
+         //System.out.println(c.getY());
 
         if (path.get(path.size() -2).equals(c)){
             return true;
@@ -274,7 +329,6 @@ public class Puzzle {
     public void setHeigth(int height) {
         this.height = height;
     }
-    
     
 }
 
