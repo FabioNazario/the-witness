@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.com.fn.thewitness;
+package br.com.fn.thewitness.puzzle.util;
 
 /**
  *
@@ -18,12 +18,12 @@ public class Coordenate{
         this.y = y;
     }
     
-    void setValues(int x, int y) {
+    public void setValues(int x, int y) {
         this.x = x;
         this.y = y;
     }
     
-    void setValues(Coordenate coordenate) {
+    public void setValues(Coordenate coordenate) {
         this.x = coordenate.getX();
         this.y = coordenate.getY();
     }

@@ -5,7 +5,9 @@
  */
 package br.com.fn.thewitness;
 
-import br.com.fn.thewitness.puzzleparts.Street;
+import br.com.fn.thewitness.puzzle.util.Coordenate;
+import br.com.fn.thewitness.puzzle.Puzzle;
+import br.com.fn.thewitness.puzzle.parts.Street;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;

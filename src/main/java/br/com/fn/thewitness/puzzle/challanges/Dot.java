@@ -1,4 +1,4 @@
-package br.com.fn.thewitness.puzzlechallanges;
+package br.com.fn.thewitness.puzzle.challanges;
 
 import java.util.Objects;
 

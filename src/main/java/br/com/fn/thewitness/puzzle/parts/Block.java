@@ -1,4 +1,4 @@
-package br.com.fn.thewitness.puzzleparts;
+package br.com.fn.thewitness.puzzle.parts;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -10,7 +10,7 @@ package br.com.fn.thewitness.puzzleparts;
  *
  * @author Fabio Nazario
  */
-public class Block extends PuzzleObject{
+public class Block{
     
     Street upStreet;
     Street rightStreet;

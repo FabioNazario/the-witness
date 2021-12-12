@@ -1,6 +1,6 @@
-package br.com.fn.thewitness.puzzleparts;
+package br.com.fn.thewitness.puzzle.parts;
 
-import br.com.fn.thewitness.puzzlechallanges.Dot;
+import br.com.fn.thewitness.puzzle.challanges.Dot;
 
 public class Intersection {
 

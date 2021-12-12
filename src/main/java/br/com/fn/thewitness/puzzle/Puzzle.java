@@ -3,12 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.com.fn.thewitness;
+package br.com.fn.thewitness.puzzle;
 
-import br.com.fn.thewitness.puzzlechallanges.Dot;
-import br.com.fn.thewitness.puzzleparts.Block;
-import br.com.fn.thewitness.puzzleparts.Intersection;
-import br.com.fn.thewitness.puzzleparts.Street;
+import br.com.fn.thewitness.puzzle.util.Coordenate;
+import br.com.fn.thewitness.puzzle.challanges.Dot;
+import br.com.fn.thewitness.puzzle.parts.Block;
+import br.com.fn.thewitness.puzzle.parts.Intersection;
+import br.com.fn.thewitness.puzzle.parts.Street;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;

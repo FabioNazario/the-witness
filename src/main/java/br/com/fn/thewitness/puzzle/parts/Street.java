@@ -3,13 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.com.fn.thewitness.puzzleparts;
+package br.com.fn.thewitness.puzzle.parts;
 
 /**
  *
  * @author Fabio Nazario
  */
-public class Street extends PuzzleObject {
+public class Street {
     
     boolean filled = false;
     
