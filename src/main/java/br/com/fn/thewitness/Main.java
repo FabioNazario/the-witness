@@ -8,6 +8,7 @@ package br.com.fn.thewitness;
 import br.com.fn.thewitness.puzzle.util.Coordenate;
 import br.com.fn.thewitness.puzzle.Puzzle;
 import br.com.fn.thewitness.puzzle.parts.Street;
+import br.com.fn.thewitness.ui.DisplayGraphics;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -21,17 +22,20 @@ import java.util.List;
 public class Main {
     
     public static void main(String[] args) throws IOException, InterruptedException {
-              
-        boolean isClear = false;
-        boolean isFinish = false;
         
+        int width = 3;
+        int height = 7;
+        
+        DisplayGraphics d = new DisplayGraphics(width,height);
+        //d.print();
+          
         List<Coordenate> dotIntersectionList = new ArrayList<Coordenate>();
         
         dotIntersectionList.add(new Coordenate(2,2));
         dotIntersectionList.add(new Coordenate(3,3));
-        dotIntersectionList.add(new Coordenate(4,4));
+        //dotIntersectionList.add(new Coordenate(4,4));
         
-        Puzzle puzzle = new Puzzle(5,5, new Coordenate(0,0), new Coordenate(2,0), dotIntersectionList);
+        Puzzle puzzle = new Puzzle(height,width, new Coordenate(0,0), new Coordenate(2,0), dotIntersectionList);
         
         while(!puzzle.isClear()){
             
@@ -41,6 +45,9 @@ public class Main {
                 String key = br.readLine();
                 key = key.toUpperCase();
                 puzzle.move(key);
+                d.repaint();
+                
+                
             } 
             
             if (!puzzle.isClear()){

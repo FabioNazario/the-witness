@@ -10,7 +10,6 @@ import br.com.fn.thewitness.puzzle.challanges.Dot;
 import br.com.fn.thewitness.puzzle.parts.Block;
 import br.com.fn.thewitness.puzzle.parts.Intersection;
 import br.com.fn.thewitness.puzzle.parts.Street;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Stack;
